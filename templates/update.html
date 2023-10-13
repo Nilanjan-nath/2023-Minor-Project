@@ -14,49 +14,29 @@
       <h2>Password Manager App</h2>
     </div>
     <div class="container">
-      <form method="POST" action="/add">
+      <form method="POST" action="/update/{{updated_details.id}}">
         <!-- email -->
+       
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name = "email" aria-describedby="emailHelp" placeholder="EMAIL">
+          <input type="email" class="form-control" id="email" name = "email" aria-describedby="emailHelp" placeholder="EMAIL" value="{{updated_details.email}}">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <!-- password -->
         <div class="form-group">
           <label for="site_password">Password</label>
-          <input type="password" class="form-control" id="password" name ="site_password" placeholder="SITE PASSWORD">
+          <input type="password" class="form-control" id="password" name ="site_password" placeholder="SITE PASSWORD" value="{{updated_details.site_password}}">
         </div>
         <!-- site name -->
         <div class="form-group">
           <label for="site_name">Site</label>
-          <input type="text" class="form-control" id="site" name = "site_name" placeholder="SITE NAME/URL">
+          <input type="text" class="form-control" id="site" name = "site_name" placeholder="SITE NAME/URL" value="{{updated_details.site_name}}">
         </div>
        
-        <button type="submit" class="btn btn-primary">ADD</button>
+        <button type="submit" class="btn btn-primary">UPDATE</button>
       </form>
     </div>
-    <div class="container">
-      {% for items in user_list%}
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-
-                <th scope="col">Email</th>
-                <th scope="col">Site Address</th>
-                <th scope="col">Site Password</th>
-                <th scope="col">Actions</th>
-                <th scope="col">Visibility</th>
-              </tr>
-          </table>
-
-      <!-- {{items.email}}
-      {{items.site_password}}
-      {{items.site_name}}
-      <a href="/delete/{{items.id}}" class = "btn btn-outline-danger">Delete</a>
-      <a href="/update/{{items.id}}" class = "btn btn-outline-success">Update</a> -->
-      {% endfor %}
-    </div>
-
+ 
 
 
 
