@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request , url_for, blueprints
+from flask import Flask , render_template , request , url_for, blueprints , redirect
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -8,8 +8,6 @@ app.config["SECRET_KEY"]="RALFJALASLSDF"
 
 db=SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
 
 #model/schema for data
 class PasswordManager(db.Model):
@@ -20,12 +18,17 @@ class PasswordManager(db.Model):
 
     def __repr__(self):
         return '<PasswordManager %r>' %self.email
+    
+with app.app_context():
+    db.create_all()
+
 
 
 
 @app.route('/')
 def helloWorld():
-    return render_template("index.html")
+    user_list = PasswordManager.query.all()
+    return render_template("index.html", user_list = user_list)
 
 @app.route('/add', methods =["GET", "POST"])
 
@@ -34,8 +37,14 @@ def add_details():
         email = request.form["email"]
         site_password = request.form["site_password"]
         site_name = request.form["site_name"]
+        user = PasswordManager(email = email, site_password = site_password, site_name = site_name)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("/"))
+
+
         
-    return "adding Hello world"
+   
 
 
 @app.route('/update')
