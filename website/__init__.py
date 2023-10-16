@@ -3,12 +3,15 @@ from flask import Flask, render_template, url_for,redirect, request, flash
 from .extensions import db,login_manager
 from .models import PasswordManager, User
 from flask_login import login_required
+from .auth import auth
 
 def createapp():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ppmanager2.db'
     app.config['SECRET_KEY'] = 'mysecretkey'
     db.init_app(app)
+
+    app.register_blueprint(auth, url_prefix ='/')
 
 
     @app.route('/')
@@ -18,6 +21,7 @@ def createapp():
 
     @app.route('/add', methods =["GET", "POST"])
 
+    
     def add_details():
         if request.method == "POST":
             email = request.form["email"]

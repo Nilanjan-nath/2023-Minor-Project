@@ -15,7 +15,8 @@ class PasswordManager(db.Model):
     
 class User(UserMixin , db.Model):
     id = db.Column(db.Integer , primary_key = True)
-    name = db.Column(db.String(250))
+    first_name = db.Column(db.String(250))
+    last_name = db.Column(db.String(250))
     email = db.Column(db.String(220), nullable = False)
     password = db.Column(db.String(64),nullable = False)
 
