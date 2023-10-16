@@ -10,8 +10,6 @@ def createapp():
     app.config['SECRET_KEY'] = 'mysecretkey'
     db.init_app(app)
 
-    with app.app_context():
-         db.create_all()
 
     @app.route('/')
     def home():
@@ -58,6 +56,9 @@ def createapp():
         else:
             flash("Some error has occurred")
             return render_template("index.html")
-        
+    
+    
+    with app.app_context():
+         db.create_all()
     
     return app
