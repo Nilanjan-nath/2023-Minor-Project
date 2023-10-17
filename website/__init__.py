@@ -4,13 +4,14 @@ from .extensions import db,login_manager
 from .models import PasswordManager, User
 from flask_login import login_required
 from .auth import auth
+from flask_migrate import Migrate
 
 def createapp():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ppmanager2.db'
     app.config['SECRET_KEY'] = 'mysecretkey'
     db.init_app(app)
-
+    migrate = Migrate(app, db)
     app.register_blueprint(auth, url_prefix ='/')
 
 
