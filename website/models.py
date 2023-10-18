@@ -1,4 +1,4 @@
-from .extensions import db
+from .extensions import db 
 from flask_login import UserMixin
 
 #model
@@ -22,3 +22,8 @@ class User(UserMixin , db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.email
+
+class keymanager(db.Model):
+    __bind_key__= 'keymanager'
+    id = db.Column(db.Integer, primary_key = True)
+    key = db.Column(db.String(250))
