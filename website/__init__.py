@@ -6,7 +6,8 @@ from flask_login import login_required
 from .auth import auth
 from flask_migrate import Migrate
 from sqlalchemy import create_engine
-
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 def createapp():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ppmanager2.db'
@@ -34,7 +35,15 @@ def createapp():
             email = request.form["email"]
             site_password = request.form["site_password"]
             site_name = request.form["site_name"]
-            user = PasswordManager(email = email, site_password = site_password, site_name = site_name)
+            data = site_password
+            key = get_random_bytes(16)
+            cipher = AES.new(key, AES.MODE_EAX)
+            ciphertext, tag = cipher.encrypt_and_digest(data)
+            ciphertext = b''
+
+
+
+            user = PasswordManager(email = email, site_password = ciphertext, site_name = site_name)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("home"))

@@ -42,7 +42,7 @@ def signUp():
         db.session.add(newUser)
         db.session.commit()
         flash("Account created Successfully! You can now log in ", category ="success")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
         
 
 
