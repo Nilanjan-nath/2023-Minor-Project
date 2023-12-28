@@ -20,6 +20,7 @@ def createapp():
     migrate = Migrate(app, db)
     app.register_blueprint(auth, url_prefix='/')
 
+    
     class AESCipher:
         def __init__(self, key):
             self.key = key
